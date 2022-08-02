@@ -6,7 +6,7 @@ const InvoiceAside = () => {
   return (
     <Stack
       width={{ xs: "auto", md: "20%" }}
-      sx={{ p: 2, border: "2px solid black" }}
+      sx={{ p: 2}}
     >
       InvoiceAside
       <Box

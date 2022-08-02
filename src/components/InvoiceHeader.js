@@ -14,7 +14,6 @@ const InvoiceHeader = () => {
       display="flex"
       justifyContent={{ md: "space-between" }}
       flexDirection={{ xs: "column", md: "row" }}
-      sx={{border:'2px solid red'}}
     >
       <Box sx={{ order: { xs: "2", md: "1" } }}>
         <label htmlFor="contained-button-file">

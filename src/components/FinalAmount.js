@@ -1,24 +1,30 @@
-import React from "react";
+import React,{useState} from "react";
 import { Box, Stack, TextField } from "@mui/material";
 
 const FinalAmount = () => {
+  const [notes, setNotes] = useState('Notes')
+  const [terms, setTerms] = useState('Terms')
   return (
-    <Stack
-      direction={{ md: "row" }}
-      sx={{ border: "2px solid blue", mt: "1rem" }}
-      spacing={{ md: 2 }}
-    >
+    <Stack direction={{ md: "row" }} sx={{ mt: "1rem" }} spacing={{ md: 2 }}>
       <Stack>
-        <FinalBillTerms />
-        <FinalBillTerms />
+        <FinalBillTerms
+          value={notes}
+          setValue={setNotes}
+          text="Notes-any relevant information not already coverd"
+        />
+        <FinalBillTerms
+          value={terms}
+          setValue={setTerms}
+          text="Terms and conditions - late fees, payment methods, delivary schedule"
+        />
       </Stack>
       <Stack mt="1rem">
         <FinalBillComponents />
-        <FinalBillComponents isEditable/>
-        <FinalBillComponents isEditable/>
-        <FinalBillComponents isEditable/>
+        <FinalBillComponents isEditable />
+        <FinalBillComponents isEditable />
+        <FinalBillComponents isEditable />
         <FinalBillComponents />
-        <FinalBillComponents isEditable/>
+        <FinalBillComponents isEditable />
         <FinalBillComponents />
       </Stack>
     </Stack>
@@ -26,11 +32,21 @@ const FinalAmount = () => {
 };
 
 //Final Bill terms
-function FinalBillTerms() {
+function FinalBillTerms({text,value,setValue}) {
   return (
     <Box mt="1rem">
-      <TextField size="small" sx={{ width: "40%" }} />
-      <TextField size="large" multiline sx={{ width: "100%" }} />
+      <TextField
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        size="small"
+        sx={{ width: "40%" }}
+      />
+      <TextField
+        placeholder={text}
+        size="large"
+        multiline
+        sx={{ width: "100%" }}
+      />
     </Box>
   );
 }

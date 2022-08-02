@@ -10,7 +10,7 @@ const InvoiceMain = () => {
     <Box
       width={{ xs: "auto", md: "80%" }}
       sx={{
-        border: "1px solid",
+        border: "1px solid #aaa",
         bgcolor: "#fff",
         p: { xs: "1rem", md: "2rem" },
       }}

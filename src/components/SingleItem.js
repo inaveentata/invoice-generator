@@ -13,7 +13,6 @@ function SingleItem(){
     <Box
       sx={{
         mt: "1rem",
-        border: "2px solid peru",
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         justifyContent: "space-between",

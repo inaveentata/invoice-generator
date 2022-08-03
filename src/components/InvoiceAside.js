@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Stack, Button } from "@mui/material";
 import CurrencyType from "./CurrencyType";
-
+ 
 const InvoiceAside = () => {
   return (
     <Stack

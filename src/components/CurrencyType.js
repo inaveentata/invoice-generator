@@ -19,7 +19,7 @@ const CurrencyType = () => {
     <Stack alignItems='center' sx={{mt:'1rem'}}> 
       <Typography variant='subtitle1' >Currency</Typography>
       <Select
-        sx={{ my: '1rem', height:'2rem', width:{xs:'10rem',md:'5rem'}}}
+        sx={{ my: '1rem', height:'2rem', width:{xs:'10rem',md:'80%'}}}
       labelId="currency-type"
       id="currency-type"
       value={value}

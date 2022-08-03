@@ -1,48 +1,40 @@
-import React,{useState} from "react";
-import { Box, Stack, TextField } from "@mui/material";
+import React from "react";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 
 const FinalAmount = () => {
-  const [notes, setNotes] = useState('Notes')
-  const [terms, setTerms] = useState('Terms')
   return (
-    <Stack direction={{ md: "row" }} sx={{ mt: "1rem" }} spacing={{ md: 2 }}>
-      <Stack>
+    <Box flexDirection={{xs:'column', md: "row" }} sx={{display:'flex', mt: "1rem" ,justifyContent:'space-between'}} spacing={{ md: 2 }}>
+      <Stack width={{md:'55%'}}>
         <FinalBillTerms
-          value={notes}
-          setValue={setNotes}
-          text="Notes-any relevant information not already coverd"
+          text='Notes'
+          placeHoldertext="Notes-any relevant information not already coverd"
         />
         <FinalBillTerms
-          value={terms}
-          setValue={setTerms}
-          text="Terms and conditions - late fees, payment methods, delivary schedule"
+          text='Terms'
+          placeHoldertext="Terms and conditions - late fees, payment methods, delivary schedule"
         />
       </Stack>
-      <Stack mt="1rem">
-        <FinalBillComponents />
-        <FinalBillComponents isEditable />
-        <FinalBillComponents isEditable />
-        <FinalBillComponents isEditable />
-        <FinalBillComponents />
-        <FinalBillComponents isEditable />
-        <FinalBillComponents />
+      <Stack mt="1rem" alignSelf='flex-end' width={{md:'40%'}}>
+        <FinalBillComponents text="Subtotal" notEditable />
+        <FinalBillComponents text="Discount" />
+        <FinalBillComponents text="Tax" />
+        <FinalBillComponents text="Shipping" />
+        <FinalBillComponents text="Total" notEditable />
+        <FinalBillComponents text="Amount Paid" />
+        <FinalBillComponents text="Balance Due" notEditable />
       </Stack>
-    </Stack>
+    </Box>
   );
 };
 
 //Final Bill terms
-function FinalBillTerms({text,value,setValue}) {
+function FinalBillTerms({ placeHoldertext,text }) {
   return (
     <Box mt="1rem">
+      <Typography component="label">{text}</Typography>
+
       <TextField
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        size="small"
-        sx={{ width: "40%" }}
-      />
-      <TextField
-        placeholder={text}
+        placeholder={placeHoldertext}
         size="large"
         multiline
         sx={{ width: "100%" }}
@@ -52,15 +44,18 @@ function FinalBillTerms({text,value,setValue}) {
 }
 
 // Bill division
-function FinalBillComponents({ isEditable, value = "0" }) {
+function FinalBillComponents({ text, notEditable, value = "0" }) {
   return (
-    <Box sx={{ display: "flex", alignItems:'center', justifyContent: "space-between", mb: "3px" }}>
-      <TextField size="small" sx={{ width: "60%" }} />
-      {isEditable ? (
-        <TextField size="small" sx={{ width: "38%" }} />
-      ) : (
-        `US$${value}.00`
-      )}
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "end",
+        mb: "3px",
+      }}
+    >
+      <Typography component="label">{text}</Typography>
+      <TextField disabled={notEditable} size="small" sx={{ml:'1rem', width: "38%" }} />
     </Box>
   );
 }

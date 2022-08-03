@@ -8,7 +8,6 @@ const InvoiceAside = () => {
       width={{ xs: "auto", md: "20%" }}
       sx={{ p: 2}}
     >
-      InvoiceAside
       <Box
         sx={{
           display: "flex",

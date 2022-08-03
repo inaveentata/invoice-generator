@@ -1,13 +1,20 @@
 import React,{useState} from 'react'
 import { Select, MenuItem,Stack,Typography } from '@mui/material'
-import { currencyData } from '../data/currencyData';
+import currencyOptionsList from "../data/currencyData";
 
 
 const CurrencyType = () => {
   const [value, setValue] = useState()
-  const currency = Object.values(currencyData).map((item) => {
-    return <MenuItem key={item.code} value={item.code} >{`${item?.code}(${item?.symbol_native})`}</MenuItem>;
-  })
+  const currency = currencyOptionsList.map((currency) => {
+      
+      return (
+        <MenuItem
+          key={currency.value}
+          value={`${currency?.value}(${currency?.symbol})`}
+        >{`${currency?.value}(${currency?.symbol})`}</MenuItem>
+      );
+      
+  });
   return (
     <Stack alignItems='center' sx={{mt:'1rem'}}> 
       <Typography variant='subtitle1' >Currency</Typography>

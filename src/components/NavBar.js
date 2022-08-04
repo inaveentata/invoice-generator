@@ -16,7 +16,7 @@ const NavBar = () => {
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: "center",
-          pl: "15%",
+          pl: "12%",
         }}
       >
         <Typography variant="h6" component="h1">

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import {v4 as uuidv4} from 'uuid'
 import { Button, Stack } from "@mui/material";
 import SingleItem from './SingleItem'
-
-const Items = () => {
+ 
+const Items = (props) => {
   const [numOfItems, setNumOfItems] = useState(1)
    let ids = []
   for (let i = 1; i <= numOfItems; i++){
@@ -14,7 +14,7 @@ const Items = () => {
   return (
     <Stack>
       {ids.map((id) => (
-        <SingleItem key={id} />
+        <SingleItem key={id} {...props} />
       ))}
       <Button
         onClick={()=> setNumOfItems(prev=>prev+1)}

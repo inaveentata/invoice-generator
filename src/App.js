@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import InvoiceBody from "./components/InvoiceBody";
 import NavBar from "./components/NavBar";
 
-
 function App() {
   return (
     <>

@@ -17,6 +17,7 @@ const InvoiceAside = () => {
       >
         <Button
           variant="contained"
+          type='submit'
           sx={{
             width: "100%",
             color: "#fff",

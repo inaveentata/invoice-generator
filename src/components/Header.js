@@ -11,7 +11,7 @@ const Header = () => {
     >
       <Stack
         sx={{
-          pl: "15%",
+          pl: "12%",
           maxWidth: "70rem",
         }}
       >

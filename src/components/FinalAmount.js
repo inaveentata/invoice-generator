@@ -16,7 +16,7 @@ const FinalAmount = (props) => {
   let { value } = useContext(CurrencyContext);
   const symbol = value.slice(4, -1);
   value = value.slice(0, 3); 
-  return (
+  return ( 
     <Box
       flexDirection={{ xs: "column", md: "row" }}
       sx={{ display: "flex", mt: "1rem", justifyContent: "space-between" }}

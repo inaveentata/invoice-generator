@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {
   Box,
   TextField,
@@ -6,9 +6,16 @@ import {
   InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { CurrencyContext } from "./CurrencyContextWrapper";
 
+ 
 
-function SingleItem(){
+function SingleItem(props) {
+  const {quantity,setQuantity,rate,setRate} = props
+  let { value } = useContext(CurrencyContext);
+  const symbol = value.slice(4,-1)
+  value = value.slice(0,3)
+
   return (
     <Box
       sx={{
@@ -33,13 +40,22 @@ function SingleItem(){
           my: { xs: "0.5rem", md: "0" },
         }}
       >
-        <TextField size="small" sx={{ order: { xs: "3",md:'1' } }} />
+        <TextField
+          value={quantity}
+          onChange={(e) => setQuantity(+e.target.value)}
+          size="small"
+          sx={{ order: { xs: "3", md: "1" } }}
+        />
         <CloseIcon fontSize="small" sx={{ order: { xs: "2" } }} />
         <TextField
+          value={rate}
+          onChange={(e) => setRate(+e.target.value)}
           size="small"
-          sx={{ order: { xs: "1",md:'3' } }}
+          sx={{ order: { xs: "1", md: "3" } }}
           InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+            startAdornment: (
+              <InputAdornment position="start">{symbol}</InputAdornment>
+            ),
           }}
         />
       </Box>
@@ -53,7 +69,7 @@ function SingleItem(){
         }}
       >
         <Typography variant="subtitle2" component="span">
-          US$0.00
+          {value} {quantity * rate}.00
         </Typography>
       </Box>
     </Box>

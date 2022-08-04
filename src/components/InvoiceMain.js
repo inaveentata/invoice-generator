@@ -10,7 +10,7 @@ const InvoiceMain = () => {
   const [rate, setRate] = useState(0)
   return (
     <Box
-      width={{ xs: "auto", md: "80%" }}
+      // width={{ xs: "auto", md: "80%" }}
       sx={{
         border: "1px solid #aaa",
         bgcolor: "#fff",

@@ -9,7 +9,7 @@ const InvoiceBody = () => {
   const onSubmit = (data) => console.log(data);
   return (
     <Stack
-      direction={{ xs: "column", md: "row" }}
+      // direction={{ xs: "column", md: "row" }}
       sx={{
         py: "3rem",
         px: "12%",

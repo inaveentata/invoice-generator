@@ -2,20 +2,18 @@ import React,{useContext} from 'react'
 import {
   Box,
   TextField,
-  Typography,
-  InputAdornment,
+      InputAdornment,
+      Button
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { CurrencyContext } from "./CurrencyContextWrapper";
 
- 
 
-function SingleItem(props) {
-  const {description,quantity,rate,handleChange} = props
-  let { value } = useContext(CurrencyContext);
-  const symbol = value.slice(4,-1)
-  value = value.slice(0,3)
 
+const InputItem = (props) => {
+    const { description, quantity, rate, handleChange, handleAdd } = props
+      let { value } = useContext(CurrencyContext);
+      const symbol = value.slice(4, -1);
   return (
     <Box
       sx={{
@@ -74,13 +72,21 @@ function SingleItem(props) {
           order: { md: "3" },
         }}
       >
-        <Typography variant="subtitle2" component="span">
-          {value} {quantity * rate}.00
-        </Typography>
+        <Button onClick={handleAdd} type='submit'>Add</Button>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
+export default InputItem
 
-export default SingleItem
+/* 
+ return (
+      <div>
+        <input name='description' placeholder='Description'  type='text' value={description} onChange={handleChange} />
+        <input name='quantity' placeholder='quantitiy' type='number' value={quantity} onChange={handleChange} />
+        <input name='rate' placeholder='rate' type='number' value={rate} onChange={handleChange} />
+        <button type='submit' onClick={handleAdd}>Add</button>
+</div> 
+
+*/

@@ -1,23 +1,43 @@
-import React, { useState } from "react";
-import {v4 as uuidv4} from 'uuid'
+import React from "react";
 import { Button, Stack } from "@mui/material";
 import SingleItem from './SingleItem'
+import InputItem from './InputItem'
  
-const Items = (props) => {
-  const [numOfItems, setNumOfItems] = useState(1)
-   let ids = []
-  for (let i = 1; i <= numOfItems; i++){
-    const id = uuidv4()
-   ids.push(id)
 
-  }
+
+/* 
+description={item.description}
+        quantity={item.quantity}
+        rate={item.rate}
+        handleEdit={handleEdit}
+        itemsData={itemsData}
+        handleDelete={handleDelete}
+        handleChange={handleChange}
+        handleAdd={handleAdd}
+
+*/
+const Items = (props) => {
+  const {
+    description,
+    quantity,
+    rate,
+    handleChange,
+    handleAdd,
+    itemsData,
+    handleEdit,handleDelete,
+  } = props;
   return (
     <Stack>
-      {ids.map((id) => (
-        <SingleItem key={id} {...props} />
-      ))}
-      <Button
-        onClick={()=> setNumOfItems(prev=>prev+1)}
+      <InputItem
+        description={description}
+        quantity={quantity}
+        rate={rate}
+        handleChange={handleChange}
+        handleAdd={handleAdd}
+      />
+
+      {/* <SingleItem /> */}
+      {/* <Button
         sx={{
           width: "8rem",
           color: "#fff",
@@ -35,7 +55,7 @@ const Items = (props) => {
         }}
       >
         + Line Item
-      </Button>
+      </Button> */}
     </Stack>
   );
 }

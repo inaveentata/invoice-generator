@@ -97,7 +97,7 @@ const BillDetails = () => {
               onChange={(newValue) => {
                 setStartDate(newValue);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField  {...params} />}
             />
           </LocalizationProvider>
         </Box>

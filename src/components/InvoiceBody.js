@@ -8,21 +8,21 @@ const InvoiceBody = () => {
   const methods = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <Stack
-      // direction={{ xs: "column", md: "row" }}
-      sx={{
-        py: "3rem",
-        px: "12%",
-        background: "linear-gradient(180deg,#f3f5f7 0,#dfe3e8 100%)",
-      }}
-    >
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          sx={{
+            py: "3rem",
+            px: "12%",
+            background: "linear-gradient(180deg,#f3f5f7 0,#dfe3e8 100%)",
+          }}
+        >
           <InvoiceMain />
           <InvoiceAside />
-        </form>
-      </FormProvider>
-    </Stack>
+        </Stack>
+      </form>
+    </FormProvider>
   );
 };
 

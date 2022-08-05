@@ -1,7 +1,7 @@
 import React,{useContext} from 'react'
 import { Select, MenuItem,Stack,Typography } from '@mui/material'
-import currencyOptionsList from "../data/currencyData";
-import { CurrencyContext } from "./CurrencyContextWrapper";
+import currencyOptionsList from "../../data/currencyData";
+import { CurrencyContext } from '../CurrencyContextWrapper'
 
 
 

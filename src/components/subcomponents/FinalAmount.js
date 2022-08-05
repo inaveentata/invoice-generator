@@ -6,9 +6,14 @@ import {
   Typography,
   InputAdornment,
 } from "@mui/material";
-import { CurrencyContext } from "./CurrencyContextWrapper";
+import { CurrencyContext } from "../CurrencyContextWrapper";
 
 const FinalAmount = (props) => {
+  const { amount } = props
+    const total = amount
+      .map((item) => +item.quantity * +item.rate)
+      .reduce((acc, cur) => acc + cur, 0);
+
   const [discount, setDiscount] = useState(0);
   const [tax, setTax] = useState(0);
   const [shipping, setShipping] = useState(0);
@@ -36,7 +41,7 @@ const FinalAmount = (props) => {
         <FinalBillComponents
           text="Subtotal"
           type={value}
-          amount={props.rate * props.quantity}
+          amount={total}
         />
         <FinalBillComponents
           text="Discount"
@@ -62,7 +67,7 @@ const FinalAmount = (props) => {
         <FinalBillComponents
           text="Total"
           type={value}
-          amount={props.rate * props.quantity - discount + tax + shipping}
+          amount={total - discount + tax + shipping}
         />
         <FinalBillComponents
           text="Amount Paid"
@@ -75,7 +80,7 @@ const FinalAmount = (props) => {
           text="Balance Due"
           type={value}
           amount={
-            props.rate * props.quantity - discount + tax + shipping - amountPaid
+            total - discount + tax + shipping - amountPaid
           }
         />
       </Stack>
@@ -120,9 +125,9 @@ function FinalBillComponents({
       <Typography component="label">{text}</Typography>
       {isEditable ? (
         <TextField
-          type='text'
+          // type='number'
           value={value}
-          onChange={(e) => setValue(+e.target.value)}
+          onChange={(e) => setValue(+e.target.value.match(/^\d*$/) ? +e.target.value:0)}
           size="small"
           sx={{ ml: "1rem", width: "38%" }}
           InputProps={{

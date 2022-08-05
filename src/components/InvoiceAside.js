@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Stack, Button } from "@mui/material";
-import CurrencyType from "./CurrencyType";
+import CurrencyType from "./subcomponents/CurrencyType";
  
 const InvoiceAside = () => {
   return (
     <Stack
-      // width={{ xs: "auto", md: "20%" }}
+      width={{ xs: "auto", md: "20%" }}
       sx={{ p: 2}}
     >
       <Box

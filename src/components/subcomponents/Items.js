@@ -46,6 +46,7 @@ const Items = () => {
           }}
         >
           <TextField
+            required
             sx={{ width: "40%" }}
             size="small"
             type={"text"}
@@ -64,6 +65,7 @@ const Items = () => {
             }}
           >
             <TextField
+              required
               sx={{ width: "50%" }}
               size="small"
               name="quantity"
@@ -72,6 +74,7 @@ const Items = () => {
               onChange={(e) => handleChange(item.id, e)}
             />
             <TextField
+              required
               sx={{ width: "50%", m: "0 0.5rem" }}
               size="small"
               name="rate"
@@ -91,11 +94,11 @@ const Items = () => {
           {itemsData.length !== 1 && (
             <Box
               sx={{
-                color: "#009e74",
+                color: "#aaa",
                 cursor: "pointer",
-                opacity: "0",
+                opacity: "1",
                 "&:hover": {
-                  opacity: "1",
+                  color: "#009e74",
                 },
               }}
               component="span"

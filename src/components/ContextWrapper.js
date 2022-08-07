@@ -5,15 +5,15 @@ export const Context = createContext();
 
 const ContextWrapper = ({ children }) => {
   const [value, setValue] = useState("INR(₹)");
-  const [discount, setDiscount] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [shipping, setShipping] = useState(0);
-  const [amountPaid, setAmountPaid] = useState(0);
+  const [discount, setDiscount] = useState('');
+  const [tax, setTax] = useState('');
+  const [shipping, setShipping] = useState('');
+  const [amountPaid, setAmountPaid] = useState('');
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [files, setFiles] = useState([]);
   const [itemsData, setItemsData] = useState([
-    { id: uuid(), description: "", quantity: 0, rate: 0 },
+    { id: uuid(), description: "", quantity: '', rate: '' },
   ]);
   const handleChange = (id, e) => {
     let { name, value } = e.target;

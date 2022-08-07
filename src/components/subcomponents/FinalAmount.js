@@ -1,27 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Stack,
   TextField,
   Typography,
-  InputAdornment,
+  InputAdornment,TextareaAutosize
 } from "@mui/material";
-import { CurrencyContext } from "../CurrencyContextWrapper";
+import { Context } from "../ContextWrapper";
+import { useFormContext } from "react-hook-form";
 
-const FinalAmount = (props) => {
-  const { amount } = props
-    const total = amount
-      .map((item) => +item.quantity * +item.rate)
-      .reduce((acc, cur) => acc + cur, 0);
 
-  const [discount, setDiscount] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [shipping, setShipping] = useState(0);
-  const [amountPaid, setAmountPaid] = useState(0);
-  let { value } = useContext(CurrencyContext);
+const FinalAmount = () => {
+  let {
+    value,
+    itemsData,
+    discount,
+    setDiscount,
+    tax,
+    setTax,
+    shipping,
+    setShipping,
+    amountPaid,
+    setAmountPaid,
+  } = useContext(Context);
+  const total = itemsData
+    .map((item) => +item.quantity * +item.rate)
+    .reduce((acc, cur) => acc + cur, 0);
+
+  
   const symbol = value.slice(4, -1);
-  value = value.slice(0, 3); 
-  return ( 
+  value = value.slice(0, 3);
+  return (
     <Box
       flexDirection={{ xs: "column", md: "row" }}
       sx={{ display: "flex", mt: "1rem", justifyContent: "space-between" }}
@@ -30,7 +39,7 @@ const FinalAmount = (props) => {
       <Stack width={{ md: "55%" }}>
         <FinalBillTerms
           text="Notes"
-          placeHoldertext="Notes-any relevant information not already coverd"
+          placeHoldertext="Notes-any relevant information not already covered"
         />
         <FinalBillTerms
           text="Terms"
@@ -38,11 +47,7 @@ const FinalAmount = (props) => {
         />
       </Stack>
       <Stack mt="1rem" alignSelf="flex-end" width={{ md: "40%" }}>
-        <FinalBillComponents
-          text="Subtotal"
-          type={value}
-          amount={total}
-        />
+        <FinalBillComponents text="Subtotal" type={value} amount={total.toFixed(2)} />
         <FinalBillComponents
           text="Discount"
           isEditable
@@ -67,7 +72,7 @@ const FinalAmount = (props) => {
         <FinalBillComponents
           text="Total"
           type={value}
-          amount={total - discount + tax + shipping}
+          amount={(total - +discount + +tax + +shipping).toFixed(2)}
         />
         <FinalBillComponents
           text="Amount Paid"
@@ -79,9 +84,9 @@ const FinalAmount = (props) => {
         <FinalBillComponents
           text="Balance Due"
           type={value}
-          amount={
-            total - discount + tax + shipping - amountPaid
-          }
+          amount={(total - +discount + +tax + +shipping - +amountPaid).toFixed(
+            2
+          )}
         />
       </Stack>
     </Box>
@@ -90,15 +95,17 @@ const FinalAmount = (props) => {
 
 //Final Bill terms
 function FinalBillTerms({ placeHoldertext, text }) {
+    const { register } = useFormContext();
   return (
     <Box mt="1rem">
       <Typography component="label">{text}</Typography>
-
-      <TextField
+      <TextareaAutosize
+        style={{ padding: "0.5rem", width: "100%" }}
+        minRows={4}
+        maxRows={4}
+        aria-label="bill info"
         placeholder={placeHoldertext}
-        size="large"
-        multiline
-        sx={{ width: "100%" }}
+        {...register(text)}
       />
     </Box>
   );
@@ -127,7 +134,13 @@ function FinalBillComponents({
         <TextField
           // type='number'
           value={value}
-          onChange={(e) => setValue(+e.target.value.match(/^\d*$/) ? +e.target.value:0)}
+          onChange={(e) =>
+            setValue(
+              e.target.value.match(/^[+]?([0-9]+(?:[.][0-9]*)?|\.[0-9]+)$/)
+                ? e.target.value
+                : ""
+            )
+          }
           size="small"
           sx={{ ml: "1rem", width: "38%" }}
           InputProps={{
@@ -138,7 +151,7 @@ function FinalBillComponents({
         />
       ) : (
         <Typography variant="subtitle1" component="span">
-          {type} {amount}.00
+          {type} {amount}
         </Typography>
       )}
     </Box>

@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import { Box, TextField, Button } from "@mui/material";
-
-const Input = styled("input")({
-  display: "none",
-});
+import React, { useCallback, useContext } from "react";
+import { useDropzone } from "react-dropzone";
+import { Box, TextField, Button, InputAdornment } from "@mui/material";
+import TagIcon from "@mui/icons-material/Tag";
+import { useFormContext } from "react-hook-form";
+import { Context } from "../ContextWrapper";
 
 const InvoiceHeader = () => {
-  const [title, setTitle] = useState("INVOICE");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const { files, setFiles } = useContext(Context);
+  const { register } = useFormContext();
 
-  useEffect(() => {
-    if (selectedImage) {
-      setImageUrl(URL.createObjectURL(selectedImage));
-    }
-  }, [selectedImage]);
+  const onDrop = useCallback((acceptedFiles) => {
+    setFiles(
+      acceptedFiles.map((file) =>
+        Object.assign(file, { preview: URL.createObjectURL(file) })
+      )
+    );
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <Box
@@ -23,22 +25,28 @@ const InvoiceHeader = () => {
       justifyContent={{ md: "space-between" }}
       flexDirection={{ xs: "column", md: "row" }}
     >
-      <Box sx={{ width: "10rem", order: { xs: "2", md: "1" } }}>
+      <Box
+        sx={{ width: "10rem", order: { xs: "2", md: "1" } }}
+        {...getRootProps()}
+      >
         <label htmlFor="contained-button-file">
-          <Input
-            accept="image/*"
-            id="contained-button-file"
-            type="file"
-            onChange={(e) => setSelectedImage(e.target.files[0])}
-          />
-
-          {imageUrl ? (
-            imageUrl &&
-            selectedImage && (
-              <Box mt={2} textAlign="center">
-                <img src={imageUrl} alt={selectedImage.name} height="100px" />
+          <input id="contained-button-file" {...getInputProps()} />
+          {files.length ? (
+            files.map((file) => (
+              <Box
+                mt={2}
+                textAlign="center"
+                key={file.name}
+                sx={{ border: "1px solid" }}
+              >
+                <img
+                  src={file.preview}
+                  alt={file.name}
+                  height="100px"
+                  width="100%"
+                />
               </Box>
-            )
+            ))
           ) : (
             <Button
               variant="outlined"
@@ -73,17 +81,34 @@ const InvoiceHeader = () => {
         <TextField
           fullWidth
           size="small"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          sx={{ textAlign: "right" }}
+          {...register("InvoiceTitle", {
+            value: "INVOICE",
+          })}
         />
         <TextField
           size="small"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <TagIcon
+                  style={{
+                    fontSize: "2rem",
+                    marginLeft: "-10",
+                    backgroundColor: "#ccc",
+                  }}
+                />
+              </InputAdornment>
+            ),
+          }}
           sx={{
             width: "50%",
             my: "1rem",
             alignSelf: { xs: "start", md: "end" },
+            fontSize: "100%",
           }}
+          {...register("InvoiceNumber", {
+            value: 1,
+          })}
         />
       </Box>
     </Box>

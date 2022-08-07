@@ -1,12 +1,36 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Stack } from "@mui/material";
 import InvoiceMain from "./InvoiceMain";
 import InvoiceAside from "./InvoiceAside";
-import { useForm, FormProvider } from "react-hook-form";
+import { Context } from "./ContextWrapper";
+import { useForm, FormProvider } from "react-hook-form"; 
 
-const InvoiceBody = () => {
+const InvoiceBody = () => { 
+  const {
+    itemsData,
+    discount,
+    tax,
+    shipping,
+    amountPaid,
+    startDate,
+    endDate,
+    files,
+  } = useContext(Context);
   const methods = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const formData = {
+      ...data,
+      itemsData,
+      discount,
+      tax,
+      shipping,
+      amountPaid,
+      startDate,
+      endDate,
+      files,
+    };
+    console.log(formData)
+  }
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>

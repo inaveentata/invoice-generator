@@ -44,8 +44,8 @@ const ContextWrapper = ({ children }) => {
     const newItem = {
       id: uuid(),
       description: "",
-      quantity: 0,
-      rate: 0,
+      quantity: '',
+      rate: '',
     };
     setItemsData((prev) => [...prev, newItem]);
   };

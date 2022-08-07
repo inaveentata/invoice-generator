@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   Stack,
   Box,
@@ -10,29 +10,30 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useFormContext } from "react-hook-form";
+import { Context } from "../ContextWrapper";
 
 const BillDetails = () => {
+  const { startDate, setStartDate, endDate, setEndDate } = useContext(Context);
   const {
     register,
     trigger,
     formState: { errors },
   } = useFormContext();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [paymentTerms, setPaymentTerms] = useState("");
+
   return (
     <Box
       flexDirection={{ xs: "column", md: "row" }}
       sx={{ display: "flex", mt: "1rem", justifyContent: "space-between" }}
       spacing={{ md: 2 }}
     >
-      <Stack width={{ md: "55%" }}>
+      <Stack width={{ md: "50%" }}>
         <TextField
           type="text"
           multiline
+          color={errors.invoiceFrom && "error"}
           placeholder="Who is this invoice from? (required)"
           size="large"
-          sx={{ width: { xs: "100%", md: "90%" } }}
+          sx={{ width: { xs: "100%" } }}
           {...register("invoiceFrom", { required: "From is Required" })}
           onKeyUp={() => {
             trigger("invoiceFrom");
@@ -52,7 +53,12 @@ const BillDetails = () => {
           <Box width={{ md: "45%" }} mt="1rem">
             <Typography component="label">Bill To</Typography>
             <TextareaAutosize
-              style={{ padding: "0.5rem", width: "100%" }}
+              style={{
+                outline: "none",
+                padding: "0.5rem",
+                width: "100%",
+                borderColor: errors.billTo && "red",
+              }}
               minRows={4}
               maxRows={4}
               aria-label="bill info"
@@ -74,6 +80,7 @@ const BillDetails = () => {
               maxRows={4}
               aria-label="bill info"
               placeholder="(optional)"
+              {...register("shipTo")}
             />
           </Box>
         </Box>
@@ -83,8 +90,8 @@ const BillDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "end",
-            mb: "10px",
+            justifyContent: "space-between",
+            mb: "3px",
           }}
         >
           <Typography component="label" sx={{ mr: "1rem" }}>
@@ -92,12 +99,18 @@ const BillDetails = () => {
           </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Start Date"
-              value={startDate}
+              value={startDate || null}
               onChange={(newValue) => {
                 setStartDate(newValue);
               }}
-              renderInput={(params) => <TextField  {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  size="small"
+                  sx={{ ml: "1rem", width: "38%" }}
+                  {...params}
+                />
+              )}
             />
           </LocalizationProvider>
         </Box>
@@ -105,25 +118,24 @@ const BillDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "end",
-            mb: "10px",
+            justifyContent: "space-between",
+            mb: "3px",
           }}
         >
           <Typography component="label">Payment Terms</Typography>
           <TextField
-            value={paymentTerms}
-            onChange={(e) => setPaymentTerms(e.target.value)}
             type="text"
             size="small"
-            sx={{ ml: "1rem" }}
+            sx={{ ml: "1rem", width: "38%" }}
+            {...register("PaymentTerms")}
           />
         </Box>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "end",
-            mb: "10px",
+            justifyContent: "space-between",
+            mb: "3px",
           }}
         >
           <Typography component="label" sx={{ mr: "1rem" }}>
@@ -131,13 +143,19 @@ const BillDetails = () => {
           </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Due Date"
-              value={endDate}
+              value={endDate || null}
               onChange={(newValue) => {
                 setEndDate(newValue);
               }}
               minDate={startDate}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  size="small"
+                  sx={{ ml: "1rem", width: "38%" }}
+                  {...params}
+                />
+              )}
             />
           </LocalizationProvider>
         </Box>
@@ -145,31 +163,32 @@ const BillDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "end",
-            mb: "10px",
+            justifyContent: "space-between",
+            mb: "3px",
           }}
         >
           <Typography component="label">PO Number</Typography>
-          <TextField
-            type="text"
-            multiline
-            size="small"
-            sx={{ ml: "1rem" }}
-            {...register("PONumber", {
-              required: "PO Number is Required",
-              pattern: {
-                value: /^[a-zA-Z0-9]+$/,
-                message: "Only alphabets and numbers are allowed",
-              },
-            })}
-            onKeyUp={() => {
-              trigger("PONumber");
-            }}
-          />
+          <Stack sx={{ ml: "1rem", width: "38%" }}>
+            <TextField
+              type="text"
+              size="small"
+              color={errors.PONumber && "error"}
+              {...register("PONumber", {
+                required: "PO Number is Required",
+                pattern: {
+                  value: /^[a-zA-Z0-9]+$/,
+                  message: "Only alphabets and numbers are allowed",
+                },
+              })}
+              onKeyUp={() => {
+                trigger("PONumber");
+              }}
+            />
 
-          {errors.PONumber && (
-            <small style={{ color: "red" }}>{errors.PONumber.message}</small>
-          )}
+            {errors.PONumber && (
+              <small style={{ color: "red" }}>{errors.PONumber.message}</small>
+            )}
+          </Stack>
         </Box>
       </Stack>
     </Box>

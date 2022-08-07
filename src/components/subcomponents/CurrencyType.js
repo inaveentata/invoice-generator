@@ -1,12 +1,12 @@
 import React,{useContext} from 'react'
 import { Select, MenuItem,Stack,Typography } from '@mui/material'
 import currencyOptionsList from "../../data/currencyData";
-import { CurrencyContext } from '../CurrencyContextWrapper'
+import { Context } from '../ContextWrapper'
 
 
 
 const CurrencyType = () => {
-  const {value, setValue} = useContext(CurrencyContext)
+  const {value, setValue} = useContext(Context)
   const currency = currencyOptionsList.map((currency) => {
       
       return (

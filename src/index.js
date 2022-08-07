@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import CurrencyContextWrapper from "./components/CurrencyContextWrapper";
+import CurrencyContextWrapper from "./components/ContextWrapper";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

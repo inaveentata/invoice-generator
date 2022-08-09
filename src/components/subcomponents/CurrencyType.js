@@ -1,13 +1,13 @@
 import React from 'react'
 import { Select, MenuItem,Stack,Typography } from '@mui/material'
-import { useFormContext,Controller } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
+import currencyOptionsList from '../../data/currencyData'
 
-
+ 
  
 const CurrencyType = () => {
   const { getValues,control } = useFormContext()
-  const currencyList = getValues("currencyList");
-  const currency = currencyList.map((currency) => {
+  const currency = currencyOptionsList.map((currency) => {
     return (
       <MenuItem
         key={currency.value}

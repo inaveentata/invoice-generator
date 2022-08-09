@@ -4,14 +4,13 @@ import InvoiceMain from "./InvoiceMain";
 import InvoiceAside from "./InvoiceAside";
 import { Context } from "./ContextWrapper";
 import { useForm, FormProvider } from "react-hook-form";
-import currencyOptionsList from "../data/currencyData";
+
 
 const InvoiceBody = () => {
   const {  files } = useContext(Context);
   const methods = useForm({
     defaultValues: {
-      itemsData: [{ description: "", quantity: "", rate: "" }],
-      currencyList:currencyOptionsList
+      itemsData: [{ description: "", quantity: "", rate: "" }]
     },
   });
   const onSubmit = (data) => {

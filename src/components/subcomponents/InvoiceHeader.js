@@ -81,7 +81,7 @@ const InvoiceHeader = () => {
         <TextField
           fullWidth
           size="small"
-          {...register("InvoiceTitle", {
+          {...register("invoiceTitle", {
             value: "INVOICE",
           })}
         />
@@ -106,7 +106,7 @@ const InvoiceHeader = () => {
             alignSelf: { xs: "start", md: "end" },
             fontSize: "100%",
           }}
-          {...register("InvoiceNumber", {
+          {...register("invoiceNumber", {
             value: 1,
           })}
         />

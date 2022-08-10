@@ -15,7 +15,6 @@ const SingleItem = () => {
     getValues,
     watch,
     control,
-    trigger,
     register,
     formState: { errors },
   } = useFormContext();
@@ -68,6 +67,7 @@ const SingleItem = () => {
             >
               <Stack sx={{ width: "50%" }}>
                 <TextField
+                  type="number"
                   size="small"
                   name={`itemsData[${index}]quantity`}
                   error={!!errors["itemsData"]?.[index]?.quantity}
@@ -75,14 +75,7 @@ const SingleItem = () => {
                   defaultValue={item.description}
                   {...register(`itemsData.${index}.quantity`, {
                     required: "Quantity is required",
-                    pattern: {
-                      value: /^[0-9]*$/,
-                      message: "Only number are allowed",
-                    },
                   })}
-                  onKeyUp={() => {
-                    trigger(`itemsData[${index}]quantity`);
-                  }}
                 />
                 {errors["itemsData"]?.[index]?.quantity && (
                   <small style={{ color: "red" }}>
@@ -92,6 +85,7 @@ const SingleItem = () => {
               </Stack>
               <Stack sx={{ width: "50%", m: "0 0.5rem" }}>
                 <TextField
+                  type="number"
                   size="small"
                   name={`itemsData[${index}]rate`}
                   error={!!errors["itemsData"]?.[index]?.rate}
@@ -103,14 +97,7 @@ const SingleItem = () => {
                   defaultValue={item.rate}
                   {...register(`itemsData.${index}.rate`, {
                     required: "Rate is required",
-                    pattern: {
-                      value: /^\d+(\.\d{0,9})?$/,
-                      message: "Only number and deciamals are allowed",
-                    },
                   })}
-                  onKeyUp={() => {
-                    trigger(`itemsData[${index}]rate`);
-                  }}
                 />
                 {errors["itemsData"]?.[index]?.rate && (
                   <small style={{ color: "red" }}>

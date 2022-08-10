@@ -17,7 +17,6 @@ const BillDetails = () => {
     watch,
     control,
     register,
-    trigger,
     formState: { errors },
   } = useFormContext();
 
@@ -38,9 +37,6 @@ const BillDetails = () => {
           size="large"
           sx={{ width: { xs: "100%" } }}
           {...register("invoiceFrom", { required: "From is Required" })}
-          onKeyUp={() => {
-            trigger("invoiceFrom");
-          }}
         />
         {errors.invoiceFrom && (
           <small style={{ color: "red" }}>{errors.invoiceFrom.message}</small>
@@ -72,9 +68,6 @@ const BillDetails = () => {
               aria-label="bill info"
               placeholder="Who is this invoice from to?(required)"
               {...register("billTo", { required: "Bill To is Required" })}
-              onKeyUp={() => {
-                trigger("billTo");
-              }}
             />
             {errors.billTo && (
               <small style={{ color: "red" }}>{errors.billTo.message}</small>
@@ -224,9 +217,6 @@ const BillDetails = () => {
                   message: "Only alphabets and numbers are allowed",
                 },
               })}
-              onKeyUp={() => {
-                trigger("poNumber");
-              }}
             />
 
             {errors.poNumber && (

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Stack,
   Box,
@@ -10,15 +10,17 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useFormContext } from "react-hook-form";
-import { Context } from "../ContextWrapper";
+import { Controller } from "react-hook-form";
 
 const BillDetails = () => {
-  const { startDate, setStartDate, endDate, setEndDate } = useContext(Context);
   const {
+    watch,
+    control,
     register,
-    trigger,
     formState: { errors },
   } = useFormContext();
+
+  const startDate = watch("startDate");
 
   return (
     <Box
@@ -35,9 +37,6 @@ const BillDetails = () => {
           size="large"
           sx={{ width: { xs: "100%" } }}
           {...register("invoiceFrom", { required: "From is Required" })}
-          onKeyUp={() => {
-            trigger("invoiceFrom");
-          }}
         />
         {errors.invoiceFrom && (
           <small style={{ color: "red" }}>{errors.invoiceFrom.message}</small>
@@ -54,19 +53,21 @@ const BillDetails = () => {
             <Typography component="label">Bill To</Typography>
             <TextareaAutosize
               style={{
-                outline: "none",
+                outlineColor: "blue",
                 padding: "0.5rem",
                 width: "100%",
-                borderColor: errors.billTo && "red",
+                fontFamily: "sans-serif",
+                fontSize: "1rem",
+                letterSpacing: "1.2px",
+                borderRadius: "0.35rem",
+                borderColor: errors.billTo ? "#e53935" : "#ccc",
+                borderWidth: errors.billTo && "0.13rem",
               }}
               minRows={4}
               maxRows={4}
               aria-label="bill info"
               placeholder="Who is this invoice from to?(required)"
               {...register("billTo", { required: "Bill To is Required" })}
-              onKeyUp={() => {
-                trigger("billTo");
-              }}
             />
             {errors.billTo && (
               <small style={{ color: "red" }}>{errors.billTo.message}</small>
@@ -75,7 +76,16 @@ const BillDetails = () => {
           <Box width={{ md: "45%" }} mt="1rem">
             <Typography component="label">Ship To</Typography>
             <TextareaAutosize
-              style={{ padding: "0.5rem", width: "100%" }}
+              style={{
+                padding: "0.5rem",
+                width: "100%",
+                borderRadius: "0.35rem",
+                borderColor: "#ccc",
+                outlineColor: "blue",
+                fontFamily: "sans-serif",
+                fontSize: "1rem",
+                letterSpacing: "1.2px",
+              }}
               minRows={4}
               maxRows={4}
               aria-label="bill info"
@@ -97,22 +107,34 @@ const BillDetails = () => {
           <Typography component="label" sx={{ mr: "1rem" }}>
             Date
           </Typography>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              value={startDate || null}
-              onChange={(newValue) => {
-                setStartDate(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  required
-                  size="small"
-                  sx={{ ml: "1rem", width: "38%" }}
-                  {...params}
-                />
-              )}
-            />
-          </LocalizationProvider>
+          <Stack sx={{ ml: "1rem", width: "40%" }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <Controller
+                name="startDate"
+                control={control}
+                defaultValue={null}
+                render={({ field, fieldState: { error } }) => (
+                  <DatePicker
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        size="small"
+                        error={!!error}
+                        {...register("startDate", {
+                          required: "Date is requred",
+                        })}
+                      />
+                    )}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+            {errors.startDate && (
+              <small style={{ color: "red" }}>{errors.startDate.message}</small>
+            )}
+          </Stack>
         </Box>
         <Box
           sx={{
@@ -126,8 +148,8 @@ const BillDetails = () => {
           <TextField
             type="text"
             size="small"
-            sx={{ ml: "1rem", width: "38%" }}
-            {...register("PaymentTerms")}
+            sx={{ ml: "1rem", width: "40%" }}
+            {...register("paymentTerms")}
           />
         </Box>
         <Box
@@ -141,23 +163,35 @@ const BillDetails = () => {
           <Typography component="label" sx={{ mr: "1rem" }}>
             Due Date
           </Typography>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              value={endDate || null}
-              onChange={(newValue) => {
-                setEndDate(newValue);
-              }}
-              minDate={startDate}
-              renderInput={(params) => (
-                <TextField
-                  required
-                  size="small"
-                  sx={{ ml: "1rem", width: "38%" }}
-                  {...params}
-                />
-              )}
-            />
-          </LocalizationProvider>
+          <Stack sx={{ ml: "1rem", width: "40%" }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <Controller
+                name="dueDate"
+                control={control}
+                defaultValue={null}
+                render={({ field, fieldState: { error } }) => (
+                  <DatePicker
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                    minDate={startDate}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        size="small"
+                        error={!!error}
+                        {...register("dueDate", {
+                          required: "Due date is requred",
+                        })}
+                      />
+                    )}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+            {errors.dueDate && (
+              <small style={{ color: "red" }}>{errors.dueDate.message}</small>
+            )}
+          </Stack>
         </Box>
         <Box
           sx={{
@@ -168,25 +202,25 @@ const BillDetails = () => {
           }}
         >
           <Typography component="label">PO Number</Typography>
-          <Stack sx={{ ml: "1rem", width: "38%" }}>
+          <Stack sx={{ ml: "1rem", width: "40%" }}>
             <TextField
               type="text"
               size="small"
-              color={errors.PONumber && "error"}
-              {...register("PONumber", {
+              error={!!errors.poNumber}
+              sx={{
+                borderColor: errors.poNumber && "#e53935",
+              }}
+              {...register("poNumber", {
                 required: "PO Number is Required",
                 pattern: {
                   value: /^[a-zA-Z0-9]+$/,
                   message: "Only alphabets and numbers are allowed",
                 },
               })}
-              onKeyUp={() => {
-                trigger("PONumber");
-              }}
             />
 
-            {errors.PONumber && (
-              <small style={{ color: "red" }}>{errors.PONumber.message}</small>
+            {errors.poNumber && (
+              <small style={{ color: "red" }}>{errors.poNumber.message}</small>
             )}
           </Stack>
         </Box>

@@ -6,7 +6,7 @@ import currencyOptionsList from '../../data/currencyData'
  
  
 const CurrencyType = () => {
-  const { getValues,control } = useFormContext()
+  const { control } = useFormContext()
   const currency = currencyOptionsList.map((currency) => {
     return (
       <MenuItem

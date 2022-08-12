@@ -12,13 +12,23 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useFormContext } from "react-hook-form";
 import { Controller } from "react-hook-form";
 
+type BillDetailsTypes = {
+  invoiceFrom: string;
+  billTo: string;
+  shipTo: string;
+  startDate?: Date | null;
+  paymentTerms: string;
+  dueDate?: Date | null;
+  poNumber: string;
+};
+
 const BillDetails = () => {
   const {
     watch,
     control,
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<BillDetailsTypes>();
 
   const startDate = watch("startDate");
 
@@ -26,7 +36,6 @@ const BillDetails = () => {
     <Box
       flexDirection={{ xs: "column", md: "row" }}
       sx={{ display: "flex", mt: "1rem", justifyContent: "space-between" }}
-      spacing={{ md: 2 }}
     >
       <Stack width={{ md: "50%" }}>
         <TextField
@@ -34,7 +43,7 @@ const BillDetails = () => {
           multiline
           color={errors.invoiceFrom && "error"}
           placeholder="Who is this invoice from? (required)"
-          size="large"
+          size="medium"
           sx={{ width: { xs: "100%" } }}
           {...register("invoiceFrom", { required: "From is Required" })}
         />

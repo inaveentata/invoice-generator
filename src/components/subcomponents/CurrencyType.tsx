@@ -1,12 +1,10 @@
-import React from 'react'
-import { Select, MenuItem,Stack,Typography } from '@mui/material'
-import { useFormContext, Controller } from 'react-hook-form';
-import currencyOptionsList from '../../data/currencyData'
+import React from "react";
+import { Select, MenuItem, Stack, Typography } from "@mui/material";
+import { useFormContext, Controller } from "react-hook-form";
+import currencyOptionsList from "../../data/currencyData";
 
- 
- 
 const CurrencyType = () => {
-  const { control } = useFormContext()
+  const { control } = useFormContext();
   const currency = currencyOptionsList.map((currency) => {
     return (
       <MenuItem
@@ -20,7 +18,7 @@ const CurrencyType = () => {
       <Typography variant="subtitle1">Currency</Typography>
       <Controller
         control={control}
-        name="currency-type"
+        name="currencyType"
         defaultValue={"INR(₹)"}
         render={({ field: { value, onChange, ref } }) => (
           <Select
@@ -39,6 +37,6 @@ const CurrencyType = () => {
       />
     </Stack>
   );
-}
+};
 
-export default CurrencyType
+export default CurrencyType;

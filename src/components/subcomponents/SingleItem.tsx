@@ -10,6 +10,12 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+type ItemsData = {
+  description: string;
+  quantity: string;
+  rate: string;
+};
+
 const SingleItem = () => {
   const {
     getValues,
@@ -22,13 +28,13 @@ const SingleItem = () => {
     control,
     name: "itemsData",
   });
-  let value = watch("currency-type") || "INR(₹)";
+  let value = watch("currencyType") || "INR(₹)";
   const symbol = value?.slice(4, -1);
   value = value?.slice(0, 3);
 
   return (
     <Box>
-      {fields.map((item, index) => {
+      {fields.map((item: ItemsData, index: number) => {
         return (
           <Box
             key={item.id}

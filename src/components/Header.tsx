@@ -34,15 +34,15 @@ const Header = () => {
         </Typography>
         <Button
           sx={{
-            width:'8rem',
+            width: "8rem",
             color: "#fff",
             textTransform: "capitalize",
             p: "0.5rem",
             bgcolor: "#009e74",
             border: "1px solid #10806f",
-            fontSize: '1rem',
-            fontWeight:'600',
-            mt:'1.5rem',
+            fontSize: "1rem",
+            fontWeight: "600",
+            mt: "1.5rem",
             "&:hover": {
               bgcolor: "#009e74",
               opacity: "0.8",

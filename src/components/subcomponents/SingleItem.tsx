@@ -14,6 +14,7 @@ type ItemsData = {
   description: string;
   quantity: string;
   rate: string;
+  id: string
 };
 
 const SingleItem = () => {
@@ -34,6 +35,7 @@ const SingleItem = () => {
 
   return (
     <Box>
+      {/* @ts-ignore */}
       {fields.map((item: ItemsData, index: number) => {
         return (
           <Box
@@ -49,7 +51,7 @@ const SingleItem = () => {
               <TextField
                 error={!!errors["itemsData"]?.[index]?.description}
                 size="small"
-                type={"text"}
+                type={"text"} //@ts-ignore
                 name={`itemsData[${index}]description`}
                 placeholder="Description of the product..."
                 defaultValue={item.description}
@@ -59,7 +61,8 @@ const SingleItem = () => {
               />
               {errors["itemsData"]?.[index]?.description && (
                 <small style={{ color: "red" }}>
-                  {errors["itemsData"]?.[index]?.description.message}
+                  {/* @ts-ignore */}
+                  {errors["itemsData"]?.[index]?.description?.message}
                 </small>
               )}
             </Stack>
@@ -74,7 +77,7 @@ const SingleItem = () => {
               <Stack sx={{ width: "50%" }}>
                 <TextField
                   type="number"
-                  size="small"
+                  size="small" //@ts-ignore
                   name={`itemsData[${index}]quantity`}
                   error={!!errors["itemsData"]?.[index]?.quantity}
                   placeholder="Quantity"
@@ -85,6 +88,7 @@ const SingleItem = () => {
                 />
                 {errors["itemsData"]?.[index]?.quantity && (
                   <small style={{ color: "red" }}>
+                    {/* @ts-ignore */}
                     {errors["itemsData"]?.[index]?.quantity.message}
                   </small>
                 )}
@@ -92,7 +96,7 @@ const SingleItem = () => {
               <Stack sx={{ width: "50%", m: "0 0.5rem" }}>
                 <TextField
                   type="number"
-                  size="small"
+                  size="small" //@ts-ignore
                   name={`itemsData[${index}]rate`}
                   error={!!errors["itemsData"]?.[index]?.rate}
                   InputProps={{
@@ -107,6 +111,7 @@ const SingleItem = () => {
                 />
                 {errors["itemsData"]?.[index]?.rate && (
                   <small style={{ color: "red" }}>
+                    {/* @ts-ignore */}
                     {errors["itemsData"]?.[index]?.rate.message}
                   </small>
                 )}{" "}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import InvoiceHeader from "./subcomponents/InvoiceHeader";
+// import InvoiceHeader from "./subcomponents/InvoiceHeader";
 import BillDetails from "./subcomponents/BillDetails";
 import Items from "./subcomponents/Items";
 import FinalAmount from "./subcomponents/FinalAmount";
@@ -16,10 +16,9 @@ const InvoiceMain = () => {
         p: { xs: "1rem", md: "2rem" },
       }}
     >
-      <InvoiceHeader />
+      {/* <InvoiceHeader /> */}
       <BillDetails />
-      <Items
-      />
+      <Items/>
       <FinalAmount />
     </Box>
   );

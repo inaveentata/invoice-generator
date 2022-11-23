@@ -6,18 +6,18 @@ import { useFormContext } from "react-hook-form";
 import { Context } from "../ContextWrapper";
 
 const InvoiceHeader = () => {
-  const { files, setFiles } = useContext(Context);
+  //   const { files, setFiles } = useContext(Context);
   const { register } = useFormContext();
 
-  const onDrop = useCallback((acceptedFiles) => {
+  /* const onDrop = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.map((file) =>
         Object.assign(file, { preview: URL.createObjectURL(file) })
       )
     );
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps */
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  //   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <Box
@@ -27,9 +27,9 @@ const InvoiceHeader = () => {
     >
       <Box
         sx={{ width: "10rem", order: { xs: "2", md: "1" } }}
-        {...getRootProps()}
+        // {...getRootProps()}
       >
-        <label htmlFor="contained-button-file">
+        {/*         <label htmlFor="contained-button-file">
           <input id="contained-button-file" {...getInputProps()} />
           {files.length ? (
             files.map((file) => (
@@ -68,7 +68,7 @@ const InvoiceHeader = () => {
               + Add Your Logo
             </Button>
           )}
-        </label>
+        </label> */}
       </Box>
       <Box
         sx={{

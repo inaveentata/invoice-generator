@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Stack,
@@ -7,7 +6,14 @@ import {
   InputAdornment,
   TextareaAutosize,
 } from "@mui/material";
+import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
+
+type ItemTypes = {
+  description: string;
+  quantity: string;
+  rate: string;
+};
 
 const FinalAmount = () => {
   const { control, watch } = useFormContext();
@@ -20,14 +26,13 @@ const FinalAmount = () => {
   const symbol = value?.slice(4, -1);
   value = value?.slice(0, 3);
   const total = data
-    .map((item) => +item.quantity * +item.rate)
-    .reduce((acc, cur) => acc + cur, 0);
+    .map((item: ItemTypes) => +item.quantity * +item.rate)
+    .reduce((acc: number, cur: number) => acc + cur, 0);
 
   return (
     <Box
       flexDirection={{ xs: "column", md: "row" }}
       sx={{ display: "flex", mt: "1rem", justifyContent: "space-between" }}
-      spacing={{ md: 2 }}
     >
       <Stack width={{ md: "55%" }}>
         <FinalBillTerms
@@ -71,7 +76,7 @@ const FinalAmount = () => {
                 value={value}
                 onChange={onChange}
                 type="number"
-                error={error && error.message}
+                // error={error && error.message}
                 size="small"
                 sx={{ ml: "1rem", width: "38%" }}
                 InputProps={{
@@ -101,7 +106,7 @@ const FinalAmount = () => {
                 value={value}
                 onChange={onChange}
                 type="number"
-                error={error && error.message}
+                // error={error && error.message}
                 size="small"
                 sx={{ ml: "1rem", width: "38%" }}
                 InputProps={{
@@ -131,7 +136,7 @@ const FinalAmount = () => {
                 value={value}
                 onChange={onChange}
                 type="number"
-                error={error && error.message}
+                // error={error && error.message}
                 size="small"
                 sx={{ ml: "1rem", width: "38%" }}
                 InputProps={{
@@ -177,7 +182,7 @@ const FinalAmount = () => {
                 value={value}
                 onChange={onChange}
                 type="number"
-                error={error && error.message}
+                // error={error && error.message}
                 size="small"
                 sx={{ ml: "1rem", width: "38%" }}
                 InputProps={{
@@ -200,9 +205,9 @@ const FinalAmount = () => {
           <Typography component="label">Balance :</Typography>
           <Typography variant="subtitle1" component="span">
             {value}{" "}
-            {isNaN(total - +discount + +tax + +shipping - +amountPaid)? '0.00':(
-              total - +discount + +tax + +shipping - +amountPaid
-            ).toFixed(2)}
+            {isNaN(total - +discount + +tax + +shipping - +amountPaid)
+              ? "0.00"
+              : (total - +discount + +tax + +shipping - +amountPaid).toFixed(2)}
           </Typography>
         </Box>
       </Stack>
@@ -210,8 +215,12 @@ const FinalAmount = () => {
   );
 };
 
+type FinallBillTermsProps = {
+  placeHoldertext: string;
+  text: string;
+};
 //Final Bill terms
-function FinalBillTerms({ placeHoldertext, text }) {
+function FinalBillTerms({ placeHoldertext, text }: FinallBillTermsProps) {
   const { register } = useFormContext();
   return (
     <Box mt="1rem">

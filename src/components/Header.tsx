@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 const Header = () => {
   return (
     <Box
@@ -28,29 +29,18 @@ const Header = () => {
           necessary. The invoices you make can be sent and paid online or
           downloaded as a PDF.
         </Typography>
-        <Typography variant="body2">
-          Did we also mention that Invoice Generator lets you generate an
-          unlimited number of invoices?
+        <Stack direction='row' alignItems='center' sx={{
+          border: '2px dotted #ccc', textTransform: 'uppercase',
+          maxWidth:'680px',p:'3px',pl:'5px',borderRadius:'3px',
+        }}>
+          <InfoOutlinedIcon color='warning'/>
+          <Typography variant="body2" sx={{
+          marginLeft:'5px'
+        }}>
+          This is just a demo form, which will not generate or give an actual
+          invoice. But the form inputs are implemented with validation.
         </Typography>
-        <Button
-          sx={{
-            width: "8rem",
-            color: "#fff",
-            textTransform: "capitalize",
-            p: "0.5rem",
-            bgcolor: "#009e74",
-            border: "1px solid #10806f",
-            fontSize: "1rem",
-            fontWeight: "600",
-            mt: "1.5rem",
-            "&:hover": {
-              bgcolor: "#009e74",
-              opacity: "0.8",
-            },
-          }}
-        >
-          OK, got it!
-        </Button>
+        </Stack>
       </Stack>
     </Box>
   );

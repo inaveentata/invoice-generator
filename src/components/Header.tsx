@@ -38,7 +38,7 @@ const Header = () => {
           marginLeft:'5px'
         }}>
           This is just a demo form, which will not generate or give an actual
-          invoice. But the form inputs are implemented with validation.
+          invoice. But the form inputs are implemented with validation. But the Output browser console.
         </Typography>
         </Stack>
       </Stack>

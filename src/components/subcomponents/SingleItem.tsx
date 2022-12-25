@@ -168,7 +168,7 @@ const SingleItem = () => {
           });
         }}
       >
-        + Line Item
+        + Add Item
       </Button>
     </Box>
   );

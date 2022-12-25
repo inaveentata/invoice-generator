@@ -4,7 +4,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-// import SingleItem from "./SingleItem";
+import SingleItem from "./SingleItem";
 
 const Items = () => {
   
@@ -27,7 +27,7 @@ const Items = () => {
         <Typography sx={{ width: "15%" }}>Rate</Typography>
         <Typography sx={{ width: "20%" }}>Amount</Typography>
       </Box>
-      {/* <SingleItem /> */}
+      <SingleItem />
     </Stack>
   );
 };

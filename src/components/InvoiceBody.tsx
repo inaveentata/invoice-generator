@@ -47,7 +47,8 @@ const InvoiceBody = () => {
       ...data,
       //   files,
     };
-    console.log(formData);
+    console.log("🚀 ~ file: InvoiceBody.tsx:51 ~ onSubmit ~ formData", formData)
+    methods.reset()
   };
   return (
     <FormProvider {...methods}>

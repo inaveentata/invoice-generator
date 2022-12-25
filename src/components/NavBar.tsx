@@ -48,6 +48,7 @@ const NavBar = () => {
             Invoicing Guide
           </Typography>
           <Button
+            disabled
             sx={{
               color: "#fff",
               textTransform: "capitalize",
